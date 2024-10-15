@@ -1,0 +1,43 @@
+// https://leetcode.com/problems/diameter-of-binary-tree/
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    private int diameter = 0;  // Store the maximum diameter
+
+    public int diameterOfBinaryTree(TreeNode root) {
+        // Helper function to calculate the height and update the diameter
+        calculateHeight(root);
+        return diameter;
+    }
+
+    // Function to calculate the height of the tree and update the diameter
+    private int calculateHeight(TreeNode node) {
+        if (node == null) {
+            return 0;  // The height of an empty tree is 0
+        }
+
+        // Recursively calculate the height of the left and right subtrees
+        int leftHeight = calculateHeight(node.left);
+        int rightHeight = calculateHeight(node.right);
+
+        // Update the diameter: the maximum diameter is the sum of the heights of the left and right subtrees
+        diameter = Math.max(diameter, leftHeight + rightHeight);
+
+        // Return the height of the current node
+        return 1 + Math.max(leftHeight, rightHeight);
+    }
+}
